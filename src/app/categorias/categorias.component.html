@@ -1,0 +1,54 @@
+<div class="container">
+  <button Agregar type="agregar" class="btn btn-primary" (click)="activar()">Agregar nueva Categoria</button>
+  <div *ngIf="insertar">
+    <div class="cointener">
+      <h1>Formulario de Categorias</h1>  
+      <div class="row m-3">
+        <form [formGroup]="formCategoria">
+          <h2>Formulario de Categorias</h2>
+          <div class="form-group mt-2">
+            <label for="CategoryName" class="col-form-label">NameCategoria</label>
+            <input formControlName="CategoryName" type="text" class="form-control"[ngClass]="{'is-invalid':f['CategoryName'].touched && f['CategoryName'].errors
+          }"/>
+            <div *ngIf="f['CategoryName'].touched && f['CategoryName'].errors" class="invalid-feedback">
+              <div *ngIf="f['CategoryName'].errors?.['required']">El nombre es requerido.</div>
+            </div>
+          </div>
+          <div class="form-group mt-2">
+            <label for="description" class="col-form-label">Description</label>
+            <input formControlName="Description" type="text" class="form-control" [ngClass]="{'is-invalid':f['Description'].touched && f['Description'].errors}"/>
+            <div *ngIf="f['Description'].touched && f['Description'].errors" class="invalid-feedback">
+            </div>
+            <br>
+          </div>
+          <div>
+            <button type="reset" class="btn btn-danger mb-2 mr-2" (click)="cancelar()">Cancelar</button>
+              <button type="submit" class="btn btn-primary mb-2 mx-2" [disabled]="this.formCategoria.invalid" (click)="guardar()">Guardar</button>    
+          </div>   
+        </form>
+    </div>
+  </div>
+</div> 
+  <div *ngIf="mostrarLista">
+    <h2>Lista de Categorias</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">IdCategoria</th>
+            <th scope="col">NameCategoria</th>
+            <th scope="col">Description</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listCategories">
+            <th scope="row">{{item.CategoryID}}</th>
+            <td>{{item.CategoryName}}</td>
+            <td>{{item.Description}}</td>
+            <td><button type="update" class="btn btn-success" (click)="cargarDatos(item)">Editar</button></td>
+            <td><button type="delete" class="btn btn-danger" (click)="borrar(item.CategoryID)">Eliminar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
